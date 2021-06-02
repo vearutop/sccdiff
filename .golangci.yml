@@ -20,6 +20,8 @@ linters-settings:
 linters:
   enable-all: true
   disable:
+    - goerr113
+    - testpackage
     - lll
     - maligned
     - gochecknoglobals
@@ -37,6 +39,7 @@ issues:
   exclude-use-default: false
   exclude-rules:
     - linters:
+        - gosec
         - gomnd
         - goconst
         - goerr113
