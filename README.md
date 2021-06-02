@@ -25,6 +25,8 @@ Usage of sccdiff:
         Show app version and exit.
 ```
 
+If there are no flags provided, `sccdiff` will try to check the code changes against `git` `HEAD` revision.
+
 Result is an ASCII formatted table, suitable for Markdown.
 
 ```
@@ -39,9 +41,12 @@ Result is an ASCII formatted table, suitable for Markdown.
 | YAML      | 5      | 308 (+3)   | 267 (+3)   | 25       | 16       | 0          | 9.8K (+49B)  |
 ```
 
-### Example GitHub Actions configuration to report code stats changes in pull request comment.
+### GitHub Action
+
+This is example configuration to report code stats changes as pull request comment.
 
 ```yaml
+# This script is provided by github.com/bool64/dev.
 name: cloc
 on:
   pull_request:
@@ -61,7 +66,7 @@ jobs:
       - name: Count Lines Of Code
         id: loc
         run: |
-          curl -OL https://github.com/vearutop/builds/releases/download/sccdiff-v0/sccdiff && chmod +x sccdiff
+          curl -OL https://github.com/vearutop/sccdiff/releases/download/v0.0.1/linux_amd64.tar.gz && tar xf linux_amd64.tar.gz
           OUTPUT=$(cd pr && ../sccdiff -basedir ../base)
           OUTPUT="${OUTPUT//'%'/'%25'}"
           OUTPUT="${OUTPUT//$'\n'/'%0A'}"
