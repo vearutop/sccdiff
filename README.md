@@ -43,7 +43,7 @@ Result is an ASCII formatted table, suitable for Markdown.
 
 ### GitHub Action
 
-This is example configuration to report code stats changes as pull request comment.
+This is an example configuration to report code stats changes as pull request comment.
 
 ```yaml
 # This script is provided by github.com/bool64/dev.
@@ -84,3 +84,5 @@ jobs:
             ${{ steps.loc.outputs.diff }}
 
 ```
+
+Example output: https://github.com/vearutop/sccdiff/pull/2.
