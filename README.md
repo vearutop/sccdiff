@@ -2,7 +2,6 @@
 
 [![Build Status](https://github.com/vearutop/sccdiff/workflows/test-unit/badge.svg)](https://github.com/vearutop/sccdiff/actions?query=branch%3Amaster+workflow%3Atest-unit)
 [![Coverage Status](https://codecov.io/gh/vearutop/sccdiff/branch/master/graph/badge.svg)](https://codecov.io/gh/vearutop/sccdiff)
-[![GoDevDoc](https://img.shields.io/badge/dev-doc-00ADD8?logo=go)](https://pkg.go.dev/github.com/vearutop/sccdiff)
 [![Time Tracker](https://wakatime.com/badge/github/vearutop/sccdiff.svg)](https://wakatime.com/badge/github/vearutop/sccdiff)
 ![Code lines](https://sloc.xyz/github/vearutop/sccdiff/?category=code)
 ![Comments](https://sloc.xyz/github/vearutop/sccdiff/?category=comments)
