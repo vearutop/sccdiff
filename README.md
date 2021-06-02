@@ -45,7 +45,6 @@ Result is an ASCII formatted table, suitable for Markdown.
 This is an example configuration to report code stats changes as pull request comment.
 
 ```yaml
-# This script is provided by github.com/bool64/dev.
 name: cloc
 on:
   pull_request:
