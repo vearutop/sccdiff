@@ -66,7 +66,7 @@ jobs:
       - name: Count Lines Of Code
         id: loc
         run: |
-          curl -OL https://github.com/vearutop/sccdiff/releases/download/v0.0.1/linux_amd64.tar.gz && tar xf linux_amd64.tar.gz
+          curl -OL https://github.com/vearutop/sccdiff/releases/download/v1.0.0/linux_amd64.tar.gz && tar xf linux_amd64.tar.gz
           OUTPUT=$(cd pr && ../sccdiff -basedir ../base)
           OUTPUT="${OUTPUT//'%'/'%25'}"
           OUTPUT="${OUTPUT//$'\n'/'%0A'}"
