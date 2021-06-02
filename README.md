@@ -9,6 +9,8 @@
 
 A tool to show the stats of code changes grouped by language, based on [`scc`](https://github.com/boyter/scc).
 
+[Blog post](https://dev.to/vearutop/improving-changed-lines-visibility-in-github-pull-requests-4m7a).
+
 ## Usage
 
 ```
