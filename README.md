@@ -14,7 +14,6 @@ A tool to show the stats of code changes grouped by language, based on [`scc`](h
 ## Usage
 
 ```
-sccdiff -help
 Usage of sccdiff:
   -all
         Include unmodified records in report.
@@ -22,6 +21,8 @@ Usage of sccdiff:
         Base directory.
   -baseref string
         Base reference. (default "HEAD")
+  -groupdirs string
+        Group files from directories, can be used to combine vendor, can have multiple comma separated values.
   -version
         Show app version and exit.
 ```
