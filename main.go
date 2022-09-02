@@ -23,6 +23,7 @@ type flags struct {
 	baseDir   string
 	all       bool
 	groupDirs string
+	expand    string
 	version   bool
 }
 
@@ -34,6 +35,7 @@ func main() {
 	flag.BoolVar(&f.all, "all", false, "Include unmodified records in report.")
 	flag.BoolVar(&f.version, "version", false, "Show app version and exit.")
 	flag.StringVar(&f.groupDirs, "groupdirs", "", "Group files from directories, can be used to combine vendor, can have multiple comma separated values.")
+	flag.StringVar(&f.expand, "expand", "", "Show changed files for a language.")
 	flag.Parse()
 
 	if f.version {
@@ -59,8 +61,15 @@ func main() {
 		return
 	}
 
+	var expand []resultRow
+	currentExpand := make(map[string]resultRow)
 	currentGrouped := make(map[string]resultRow)
 	for _, v := range current {
+		if v.Language == f.expand {
+			println("current", v.Location)
+			currentExpand[v.Location] = v
+		}
+
 		currentGrouped[v.Language] = currentGrouped[v.Language].add(v)
 	}
 
@@ -75,6 +84,19 @@ func main() {
 		}
 
 		for _, v := range base {
+			if v.Language == f.expand {
+				println("base", v.Location)
+
+				cur, ok := currentExpand[v.Location]
+				if !ok {
+					cur.addBase(v)
+
+					if cur.Bytes != 0 {
+						expand = append(expand, cur)
+					}
+				}
+			}
+
 			currentGrouped[v.Language] = currentGrouped[v.Language].addBase(v)
 		}
 	}
@@ -91,6 +113,12 @@ func main() {
 	}
 
 	printTable(currentGrouped, f.all)
+
+	if len(expand) > 0 {
+		for _, row := range expand {
+			fmt.Println(row)
+		}
+	}
 }
 
 func printTable(currentGrouped map[string]resultRow, all bool) {
