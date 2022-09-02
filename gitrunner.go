@@ -5,7 +5,6 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"log"
 	"os"
 	"os/exec"
@@ -14,7 +13,7 @@ import (
 // runCmd runs cmd sending its stdout and stderr to debug.Write().
 func runCmd(cmd *exec.Cmd, debug *log.Logger) error {
 	if debug == nil {
-		debug = log.New(ioutil.Discard, "", 0)
+		debug = log.New(io.Discard, "", 0)
 	}
 
 	var bufStderr bytes.Buffer
@@ -61,7 +60,7 @@ func runGitCmd(debug *log.Logger, gitCmd, repoPath string, args ...string) ([]by
 }
 
 func runAtGitRef(debug *log.Logger, gitCmd, repoPath, ref string, fn func(path string)) error {
-	worktree, err := ioutil.TempDir("", "sccdiff")
+	worktree, err := os.MkdirTemp("", "sccdiff")
 	if err != nil {
 		return err
 	}
