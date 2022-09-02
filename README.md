@@ -51,6 +51,12 @@ This is an example configuration to report code stats changes as pull request co
 name: cloc
 on:
   pull_request:
+
+# Cancel the workflow in progress in newer build is about to start.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+
 jobs:
   cloc:
     runs-on: ubuntu-latest
@@ -67,14 +73,16 @@ jobs:
       - name: Count Lines Of Code
         id: loc
         run: |
-          curl -OL https://github.com/vearutop/sccdiff/releases/download/v1.0.1/linux_amd64.tar.gz && tar xf linux_amd64.tar.gz
+          curl -sLO https://github.com/vearutop/sccdiff/releases/download/v1.0.3/linux_amd64.tar.gz && tar xf linux_amd64.tar.gz
+          sccdiff_hash=$(git hash-object ./sccdiff)
+          [ "$sccdiff_hash" == "ae8a07b687bd3dba60861584efe724351aa7ff63" ] || (echo "::error::unexpected hash for sccdiff, possible tampering: $sccdiff_hash" && exit 1)
           OUTPUT=$(cd pr && ../sccdiff -basedir ../base)
-          OUTPUT="${OUTPUT//'%'/'%25'}"
-          OUTPUT="${OUTPUT//$'\n'/'%0A'}"
-          OUTPUT="${OUTPUT//$'\r'/'%0D'}"
+          echo "${OUTPUT}"
+          OUTPUT="${OUTPUT//$'\n'/%0A}"
           echo "::set-output name=diff::$OUTPUT"
 
       - name: Comment Code Lines
+        continue-on-error: true
         uses: marocchino/sticky-pull-request-comment@v2
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
