@@ -1,3 +1,4 @@
+// Package app provides sccdiff application entry point.
 package app
 
 import (
@@ -26,6 +27,7 @@ type flags struct {
 	version   bool
 }
 
+// Main is the application entry point.
 func Main() {
 	f := flags{}
 
