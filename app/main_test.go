@@ -1,4 +1,4 @@
-package main
+package app
 
 import (
 	"bytes"
@@ -30,7 +30,7 @@ func Test(t *testing.T) {
 		close(done)
 	}()
 
-	main()
+	Main()
 	require.NoError(t, w.Close())
 
 	<-done
