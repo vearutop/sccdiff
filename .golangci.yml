@@ -20,7 +20,6 @@ linters-settings:
 linters:
   enable-all: true
   disable:
-    - nosnakecase
     - funlen
     - goerr113
     - testpackage
@@ -43,6 +42,14 @@ linters:
     - ireturn
     - exhaustruct
     - nonamedreturns
+    - nosnakecase
+    - structcheck
+    - varcheck
+    - deadcode
+    - testableexamples
+    - dupword
+    - depguard
+    - tagalign
 
 issues:
   exclude-use-default: false
@@ -62,5 +69,6 @@ issues:
       path: "_test.go"
     - linters:
         - errcheck # Error checking omitted for brevity.
+        - gosec
       path: "example_"
 
